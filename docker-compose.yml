@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  ark_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ark_server_container
+    ports:
+      - "27015:27015/udp"
+      - "7777:7777/udp"
+    stdin_open: true
+    tty: true
