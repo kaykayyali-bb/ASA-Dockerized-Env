@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.8"
 services:
   asa-server-1:
     container_name: asa-server-1
@@ -7,13 +7,11 @@ services:
     user: gameserver
     image: "mschnitzer/asa-linux-server:latest"
     env_file: ./BBS-SVR-001/.env
-    environment:
-      - ASA_START_PARAMS=$STARTCMD
     ports:
       # Game port for player connections through the server browser
-      - 0.0.0.0:7777:7777/udp
+      - '${SVR_1_HOST}:${SVR_1_LISTEN_PORT}:${SVR_1_LISTEN_PORT}/udp'
       # RCON port for remote server administration
-      - 0.0.0.0:27020:27020/tcp
+      - '${SVR_1_HOST}:${SVR_1_RCON_PORT}:${SVR_1_RCON_PORT}/tcp'
     depends_on:
       - set-permissions-1
     volumes:
@@ -21,7 +19,7 @@ services:
       - steamcmd-1:/home/gameserver/steamcmd:rw
       - server-files-1:/home/gameserver/server-files:rw
       - cluster-shared:/home/gameserver/cluster-shared:rw
-      - ./BBS-SVR-001/:/home/gameserver/server-files/ShooterGame/Saved/Config/WindowsServer
+      - ./BBS-SVR-001/config/:/home/gameserver/server-files/ShooterGame/Saved/Config/WindowsServer
       - /etc/localtime:/etc/localtime:ro
     networks:
       asa-network:
@@ -41,13 +39,11 @@ services:
     user: gameserver
     image: "mschnitzer/asa-linux-server:latest"
     env_file: ./BBS-SVR-002/.env
-    environment:
-      - ASA_START_PARAMS=$STARTCMD
     ports:
       # Game port for player connections through the server browser
-      - 0.0.0.0:7778:7778/udp
+      - '${SVR_2_HOST}:${SVR_2_LISTEN_PORT}:${SVR_2_LISTEN_PORT}/udp'
       # RCON port for remote server administration
-      - 0.0.0.0:27021:27021/tcp
+      - '${SVR_2_HOST}:${SVR_2_RCON_PORT}:${SVR_2_RCON_PORT}/tcp'
     depends_on:
       - set-permissions-2
     volumes:
@@ -55,7 +51,7 @@ services:
       - steamcmd-2:/home/gameserver/steamcmd:rw
       - server-files-2:/home/gameserver/server-files:rw
       - cluster-shared:/home/gameserver/cluster-shared:rw
-      - ./BBS-SVR-002/:/home/gameserver/server-files/ShooterGame/Saved/Config/WindowsServer
+      - ./BBS-SVR-002/config/:/home/gameserver/server-files/ShooterGame/Saved/Config/WindowsServer
       - /etc/localtime:/etc/localtime:ro
     networks:
       asa-network:
@@ -75,13 +71,11 @@ services:
     user: gameserver
     image: "mschnitzer/asa-linux-server:latest"
     env_file: ./BBS-SVR-003/.env
-    environment:
-      - ASA_START_PARAMS=$STARTCMD
     ports:
       # Game port for player connections through the server browser
-      - 0.0.0.0:7779:7779/udp
+      - '${SVR_3_HOST}:${SVR_3_LISTEN_PORT}:${SVR_3_LISTEN_PORT}/udp'
       # RCON port for remote server administration
-      - 0.0.0.0:27022:27022/tcp
+      - '${SVR_3_HOST}:${SVR_3_RCON_PORT}:${SVR_3_RCON_PORT}/tcp'
     depends_on:
       - set-permissions-3
     volumes:
@@ -89,7 +83,7 @@ services:
       - steamcmd-3:/home/gameserver/steamcmd:rw
       - server-files-3:/home/gameserver/server-files:rw
       - cluster-shared:/home/gameserver/cluster-shared:rw
-      - ./BBS-SVR-003/:/home/gameserver/server-files/ShooterGame/Saved/Config/WindowsServer
+      - ./BBS-SVR-003/config/:/home/gameserver/server-files/ShooterGame/Saved/Config/WindowsServer
       - /etc/localtime:/etc/localtime:ro
     networks:
       asa-network:
